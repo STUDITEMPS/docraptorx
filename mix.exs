@@ -5,6 +5,12 @@ defmodule Docraptorx.Mixfile do
     [app: :docraptorx,
      version: "0.1.0",
      elixir: "~> 1.3",
+     description: "Docraptor API client",
+     package: [
+       maintainers: ["Kaname"],
+       licenses: ["MIT"],
+       links: %{"GitHub" => "https://github.com/asacraft/docraptorx"}
+     ],
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      deps: deps()]
