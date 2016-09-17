@@ -28,3 +28,7 @@ Docraptorx.create!(document_type: "pdf",
 Docraptorx.status!("a4096ef2-fde6-48f5-bbeb-ce2ad6873098")
 #=> %{"status" => "completed", "download_id" => "...", "download_url" => "...", "number_of_pages" => 1}
 ```
+
+## Example
+
+https://github.com/asacraft/docraptorx_example
