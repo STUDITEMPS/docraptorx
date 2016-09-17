@@ -23,7 +23,7 @@ defmodule Docraptorx do
     |> parse_response
   end
 
-  defp parse_response(response) do
+  def parse_response(response) do
     if response.status_code == 200 do
       case JSX.decode(response.body) do
         {:ok, body} -> body
