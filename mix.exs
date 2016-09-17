@@ -29,6 +29,8 @@ defmodule Docraptorx.Mixfile do
   defp deps do
     [{:httpoison, "~> 0.9.0"},
      {:exjsx, "~> 3.2"},
-     {:exml, "~> 0.1.0"}]
+     {:exml, "~> 0.1.0"},
+     {:earmark, "~> 1.0", only: :dev},
+     {:ex_doc, "~> 0.13.1", only: :dev}]
   end
 end

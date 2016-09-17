@@ -1,6 +1,28 @@
 defmodule Docraptorx do
+  @moduledoc """
+  Docraptor API client for Elixir.
+
+  ```elixir
+  Docraptorx.configure("your api key")
+
+  Docraptorx.create!(document_type: "pdf",
+                     document_content: "<html><body>Hello World!</body></html>"
+                     name: "hello.pdf",
+                     async: true)
+  #=> %{"status_id": "a4096ef2-fde6-48f5-bbeb-ce2ad6873098"}
+
+  Docraptorx.status!("a4096ef2-fde6-48f5-bbeb-ce2ad6873098")
+  #=> %{"status" => "completed", "download_id" => "...", "download_url" => "...", "number_of_pages" => 1}
+  ```
+
+  For detailed information about the options, see [official documentation](https://docraptor.com/documentation).
+  """
+
   alias Docraptorx.HttpClient
 
+  @doc """
+  Create a document with specified options.
+  """
   def create!(opts \\ %{}) do
     body = JSX.encode!(opts)
     headers = %{"Content-type": "application/json"}
@@ -8,16 +30,25 @@ defmodule Docraptorx do
     |> parse_response
   end
 
+  @doc """
+  Fetch the status of the document job specified by status_id.
+  """
   def status!(status_id) do
     HttpClient.get!("/status/#{status_id}", %{})
     |> parse_response
   end
 
+  @doc """
+  Get a list of created documents, ordered by date of creation (most recent first).
+  """
   def docs!(params \\ %{}) do
     HttpClient.get!("/docs.json", %{}, params: params)
     |> parse_response
   end
 
+  @doc """
+  Get a list of attempted document creations, ordered by date of creation (most recent first).
+  """
   def logs!(params \\ %{}) do
     HttpClient.get!("/doc_logs.json", %{}, params: params)
     |> parse_response
