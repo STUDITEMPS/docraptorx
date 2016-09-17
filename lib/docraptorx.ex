@@ -13,6 +13,16 @@ defmodule Docraptorx do
     |> parse_response
   end
 
+  def docs!(params \\ %{}) do
+    HttpClient.get!("/docs.json", %{}, params: params)
+    |> parse_response
+  end
+
+  def logs!(params \\ %{}) do
+    HttpClient.get!("/doc_logs.json", %{}, params: params)
+    |> parse_response
+  end
+
   defp parse_response(response) do
     if response.status_code == 200 do
       case JSX.decode(response.body) do
