@@ -28,6 +28,7 @@ defmodule Docraptorx.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [{:httpoison, "~> 0.9.0"},
-     {:exjsx, "~> 3.2"}]
+     {:exjsx, "~> 3.2"},
+     {:exml, "~> 0.1.0"}]
   end
 end
