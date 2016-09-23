@@ -2,7 +2,7 @@ defmodule Docraptorx.HttpClient do
   use HTTPoison.Base
 
   defp process_url(url) do
-    Application.get_env(:docraptorx, :base_url) <> url
+    Application.get_env(:docraptorx, :base_url, "https://docraptor.com") <> url
   end
 
   defp process_request_headers(headers) when is_map(headers) do

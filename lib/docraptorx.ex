@@ -71,8 +71,10 @@ defmodule Docraptorx do
     |> Exml.get("//error/text()")
   end
 
-  def configure(api_key, base_url \\ "https://docraptor.com") do
+  def configure(api_key, base_url \\ nil) do
     Application.put_env(:docraptorx, :api_key, api_key)
-    Application.put_env(:docraptorx, :base_url, base_url)
+    if String.valid?(base_url) && String.strip(base_url) != "" do
+      Application.put_env(:docraptorx, :base_url, base_url)
+    end
   end
 end

@@ -39,4 +39,20 @@ defmodule DocraptorxTest do
     expected = response.body
     assert Docraptorx.parse_response(response) == expected
   end
+
+  test "configure should not set blank base_url" do
+    Docraptorx.configure("api key", " ")
+    assert Application.fetch_env(:docraptorx, :base_url) == :error
+  end
+
+  test "configure should not set non-string base_url" do
+    Docraptorx.configure("api key", 123)
+    assert Application.fetch_env(:docraptorx, :base_url) == :error
+  end
+
+  test "configure should set application env" do
+    Docraptorx.configure("api key", "https://example.com")
+    assert Application.get_env(:docraptorx, :api_key) == "api key"
+    assert Application.get_env(:docraptorx, :base_url) == "https://example.com"
+  end
 end
