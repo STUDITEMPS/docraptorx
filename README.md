@@ -1,6 +1,6 @@
 # Docraptorx
 [![hex.pm version](https://img.shields.io/hexpm/v/docraptorx.svg)](https://hex.pm/packages/docraptorx)
-[![Build Status](https://travis-ci.org/asacraft/docraptorx.png?branch=master)](https://travis-ci.org/asacraft/docraptorx)
+[![Build Status](https://travis-ci.org/asacraft/docraptorx.svg?branch=master)](https://travis-ci.org/asacraft/docraptorx)
 [![hex.pm](https://img.shields.io/hexpm/l/docraptorx.svg)](https://github.com/asacraft/docraptorx/blob/master/LICENSE)
 
 Elixir library to access [Docraptor API](https://docraptor.com/documentation).
