@@ -4,7 +4,7 @@ defmodule Docraptorx.Mixfile do
   def project do
     [app: :docraptorx,
      version: "0.1.1",
-     elixir: "~> 1.3",
+     elixir: "~> 1.2",
      description: "Docraptor API client",
      package: [
        maintainers: ["Kaname"],
