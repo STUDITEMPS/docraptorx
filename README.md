@@ -20,10 +20,10 @@ end
 ```elixir
 Docraptorx.configure("your api key")
 
-Docraptorx.create!(document_type: "pdf",
+Docraptorx.create!(%{document_type: "pdf",
                    document_content: "<html><body>Hello World!</body></html>"
                    name: "hello.pdf",
-                   async: true)
+                   async: true})
 #=> %{"status_id": "a4096ef2-fde6-48f5-bbeb-ce2ad6873098"}
 
 Docraptorx.status!("a4096ef2-fde6-48f5-bbeb-ce2ad6873098")
