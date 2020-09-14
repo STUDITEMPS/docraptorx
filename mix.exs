@@ -4,7 +4,7 @@ defmodule Docraptorx.Mixfile do
   def project do
     [app: :docraptorx,
      version: "0.1.1",
-     elixir: "~> 1.2",
+     elixir: "~> 1.5",
      description: "Docraptor API client",
      package: [
        maintainers: ["Kaname"],
@@ -20,7 +20,7 @@ defmodule Docraptorx.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :httpoison, :exjsx]]
+    [applications: [:logger, :httpoison, :jsx]]
   end
 
   # Dependencies can be Hex packages:
