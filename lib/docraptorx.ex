@@ -24,8 +24,9 @@ defmodule Docraptorx do
   Create a document with specified options.
   """
   def create!(opts \\ %{}) do
-    body = JSX.encode!(opts)
+    body = Jason.encode!(opts)
     headers = %{"Content-type": "application/json"}
+
     HttpClient.post!("/docs", body, headers)
     |> parse_response
   end
@@ -56,7 +57,7 @@ defmodule Docraptorx do
 
   def parse_response(response) do
     if response.status_code == 200 do
-      case JSX.decode(response.body) do
+      case Jason.decode(response.body) do
         {:ok, body} -> body
         {:error, _} -> response.body
       end
@@ -67,12 +68,13 @@ defmodule Docraptorx do
 
   defp parse_error(body) do
     body
-    |> Exml.parse
+    |> Exml.parse()
     |> Exml.get("//error/text()")
   end
 
   def configure(api_key, base_url \\ nil) do
     Application.put_env(:docraptorx, :api_key, api_key)
+
     if String.valid?(base_url) && String.strip(base_url) != "" do
       Application.put_env(:docraptorx, :base_url, base_url)
     end

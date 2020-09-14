@@ -20,7 +20,7 @@ defmodule Docraptorx.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :httpoison, :jsx]]
+    [applications: [:logger, :httpoison]]
   end
 
   # Dependencies can be Hex packages:
@@ -34,7 +34,7 @@ defmodule Docraptorx.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [{:httpoison, "~> 1.6"},
-     {:jsx, "~> 2.11.0"},
+     {:jason, "~> 1.2"},
      {:exml, "~> 0.1.0"},
      {:earmark, "~> 1.0", only: :dev},
      {:ex_doc, "~> 0.13.1", only: :dev}]
