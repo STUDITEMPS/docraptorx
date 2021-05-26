@@ -26,8 +26,9 @@ defmodule Docraptorx do
   def create!(opts \\ %{}) do
     body = Jason.encode!(opts)
     headers = %{"Content-Type": "application/json"}
+    options = [timeout: 60_000, recv_timeout: 60_000]
 
-    HttpClient.post!("/docs", body, headers)
+    HttpClient.post!("/docs", body, headers, options)
     |> parse_response
   end
 
