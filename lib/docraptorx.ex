@@ -32,6 +32,17 @@ defmodule Docraptorx do
   end
 
   @doc """
+  Create a document with specified options and returns pdf_binary and number of document pages
+  """
+  def create(opts \\ %{}) do
+    body = Jason.encode!(opts)
+    headers = %{"Content-Type": "application/json"}
+
+    HttpClient.post!("/docs", body, headers)
+    |> parse_response(true)
+  end
+
+  @doc """
   Fetch the status of the document job specified by status_id.
   """
   def status!(status_id) do
@@ -55,22 +66,35 @@ defmodule Docraptorx do
     |> parse_response
   end
 
-  def parse_response(response) do
-    if response.status_code == 200 do
-      case Jason.decode(response.body) do
+  def parse_response(response) when response.status_code == 200 do
+    case Jason.decode(response.body) do
         {:ok, body} -> body
         {:error, _} -> response.body
       end
-    else
-      %{"error" => parse_error(response.body)}
-    end
   end
+
+    def parse_response(response, _include_number_of_pages)
+      when response.status_code == 200 do
+      case Jason.decode(response.body) do
+        {:ok, body} -> %{pdf_binary: body, number_of_pages: extract_numbert_of_pages(response.headers)}
+        {:error, _} -> %{pdf_binary: response.body, number_of_pages: extract_numbert_of_pages(response.headers)}
+      end
+    end
+
+  def parse_response(response),
+    do: %{"error" => parse_error(response.body)}
 
   defp parse_error(body) do
     body
     |> Exml.parse()
     |> Exml.get("//error/text()")
   end
+
+  defp extract_numbert_of_pages(headers) do
+    %{"X-DocRaptor-Num-Pages" => value} = headers |> Enum.into(%{})
+    value |> String.to_integer
+  end
+
 
   def configure(api_key, base_url \\ nil) do
     Application.put_env(:docraptorx, :api_key, api_key)

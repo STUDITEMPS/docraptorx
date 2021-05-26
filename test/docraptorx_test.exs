@@ -40,6 +40,20 @@ defmodule DocraptorxTest do
     assert Docraptorx.parse_response(response) == expected
   end
 
+  test "parse_response with number_of_pages option should return :number_of_pages and :pdf_binary properties" do
+    response = %HTTPoison.Response{
+      status_code: 200,
+      headers: [{"X-DocRaptor-Num-Pages", "100"}],
+      body: """
+      %PDF-1.7
+      some pdf content
+      %%EOF
+      """
+    }
+    expected = %{pdf_binary: response.body, number_of_pages: 100}
+    assert assert Docraptorx.parse_response(response, true) == expected
+  end
+
   test "configure should set application env" do
     Docraptorx.configure("api key", " ")
     assert Application.fetch_env(:docraptorx, :base_url) == :error
